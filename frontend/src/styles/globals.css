@@ -1,0 +1,232 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-en: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont,
+      'Segoe UI', sans-serif;
+    --font-ar: 'IBM Plex Sans Arabic', 'Cairo', -apple-system,
+      BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-numeric: 'Plus Jakarta Sans', ui-monospace, SFMono-Regular, Menlo,
+      monospace;
+    --font-app: var(--font-en);
+
+    /*
+     * Semantic palette. Values are space-separated RGB channels so Tailwind
+     * can apply opacity utilities such as `text-primary/55`.
+     */
+    --color-primary: 15 23 42; /* #0F172A */
+    --color-strong: 15 23 42; /* solid buttons / active pills */
+    --color-strong-hover: 30 41 59; /* #1E293B */
+    --color-accent: 37 99 235; /* #2563EB */
+    --color-accent-solid: 37 99 235;
+    --color-success: 21 128 61; /* #15803D */
+    --color-success-surface: 240 253 244;
+    --color-warning: 180 83 9; /* #B45309 */
+    --color-warning-surface: 255 251 235;
+    --color-danger: 185 28 28; /* #B91C1C */
+    --color-danger-surface: 254 242 242;
+    --color-surface: 255 255 255;
+    --color-background: 248 250 252; /* #F8FAFC */
+    --color-border: 226 232 240; /* #E2E8F0 */
+    --color-disabled: 148 163 184; /* #94A3B8 */
+    --color-ring-offset: 255 255 255;
+    --shadow-rail: 0 8px 30px rgba(15, 23, 42, 0.08);
+
+    color-scheme: light;
+  }
+
+  /*
+   * Dark theme: slate blues and greys, never pure black. Text tokens flip to
+   * light, surfaces to slate-800/900, and status colours brighten so they keep
+   * AA contrast on dark surfaces.
+   */
+  html.dark {
+    --color-primary: 226 232 240; /* #E2E8F0 */
+    --color-strong: 37 99 235; /* #2563EB */
+    --color-strong-hover: 59 130 246; /* #3B82F6 */
+    --color-accent: 96 165 250; /* #60A5FA */
+    --color-accent-solid: 37 99 235;
+    --color-success: 74 222 128; /* #4ADE80 */
+    --color-success-surface: 20 45 35;
+    --color-warning: 251 191 36; /* #FBBF24 */
+    --color-warning-surface: 51 39 12;
+    --color-danger: 248 113 113; /* #F87171 */
+    --color-danger-surface: 60 24 26;
+    --color-surface: 30 41 59; /* #1E293B slate-800 */
+    --color-background: 15 23 42; /* #0F172A slate-900 */
+    --color-border: 51 65 85; /* #334155 slate-700 */
+    --color-disabled: 100 116 139; /* #64748B */
+    --color-ring-offset: 30 41 59;
+    --shadow-rail: 0 8px 30px rgba(0, 0, 0, 0.45);
+
+    color-scheme: dark;
+  }
+
+  html[lang='en'] {
+    --font-app: var(--font-en);
+  }
+
+  html[lang='ar'] {
+    --font-app: var(--font-ar);
+  }
+
+  html {
+    font-family: var(--font-app);
+    scroll-behavior: smooth;
+  }
+
+  html.dark {
+    scrollbar-color: rgb(var(--color-border)) rgb(var(--color-background));
+  }
+
+  body {
+    @apply min-h-screen bg-background text-primary antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: #2563eb;
+    color: #ffffff;
+  }
+
+  input[type='date'] {
+    color-scheme: inherit;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* §2 — A4 print calibration                                                  */
+/* -------------------------------------------------------------------------- */
+
+/* The printable portal is inert on screen; it only exists during a print job. */
+.print-document {
+  display: none;
+}
+
+.print-exact {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 12mm;
+}
+
+@media print {
+  /* Reports are always printed on white paper, even when the app is dark. */
+  :root,
+  html.dark {
+    --color-primary: 15 23 42;
+    --color-strong: 15 23 42;
+    --color-strong-hover: 30 41 59;
+    --color-accent: 37 99 235;
+    --color-accent-solid: 37 99 235;
+    --color-success: 21 128 61;
+    --color-success-surface: 240 253 244;
+    --color-warning: 180 83 9;
+    --color-warning-surface: 255 251 235;
+    --color-danger: 185 28 28;
+    --color-danger-surface: 254 242 242;
+    --color-surface: 255 255 255;
+    --color-background: 248 250 252;
+    --color-border: 226 232 240;
+    --color-disabled: 148 163 184;
+    --color-ring-offset: 255 255 255;
+    color-scheme: light;
+  }
+
+  html,
+  body {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  /* Hide the application chrome and reveal only the isolated print portal. */
+  body.has-print-document > *:not(.print-document) {
+    display: none !important;
+  }
+
+  body.has-print-document .print-document {
+    display: block !important;
+  }
+
+  /* Navigation, sidebars, and interactive controls never belong in a report. */
+  nav,
+  aside,
+  header nav,
+  button,
+  [role='navigation'],
+  [role='button'],
+  .print-hide {
+    display: none !important;
+  }
+
+  .print-page {
+    box-sizing: border-box;
+    width: 186mm;
+    min-height: 273mm;
+    padding: 0;
+    background: #ffffff;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  /* The free executive summary is contractually one A4 page. */
+  .print-page--single {
+    display: flex;
+    flex-direction: column;
+    height: 273mm;
+    max-height: 273mm;
+    overflow: hidden;
+  }
+
+  .print-page:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  .print-page table {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .print-page tr,
+  .print-page img {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  a[href]::after {
+    content: '';
+  }
+}
+
+@layer utilities {
+  /* Direction-sensitive icons only. Semantic icons stay unmirrored. */
+  [dir='rtl'] .icon-directional {
+    transform: scaleX(-1);
+  }
+
+  .font-numeric {
+    font-family: var(--font-numeric);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Hide scrollbars only where horizontal step navigation must stay compact. */
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
