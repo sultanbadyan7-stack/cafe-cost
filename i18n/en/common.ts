@@ -602,6 +602,9 @@ export const en = {
   'footer.savedAt': 'Saved {time}',
   'footer.madeWith': 'Made for small café owners',
   'footer.telegram': 'Contact us on Telegram',
+  'footer.tiktok': 'TikTok',
+  'footer.instagram': 'Instagram',
+  'footer.followUs': 'Follow us',
 
   'preset.menu': 'Menu preset',
   'preset.suppliers': 'Supplier preset',

@@ -161,7 +161,8 @@ exact variables to add, and the workspace is still saved locally.
 | `Invalid login credentials` | Wrong email/password, or the account has not been confirmed |
 | Sign-up succeeds but no session | Email confirmation is enabled; confirm the email first |
 | `Cloud save failed` | RLS blocks the write, the `projects` table is missing, or the user is signed out |
-| Changes not picked up | Restart Vite; `VITE_*` values are inlined at startup |
+| `NetworkError` / `Failed to fetch` on sign-up | First run `nslookup <project-ref>.supabase.co` — `NXDOMAIN` means the URL in `frontend/.env.local` is stale (deleted/renamed project). Also check Supabase → Authentication → URL Configuration and allow both `http://localhost:5173` and `http://127.0.0.1:5173`. If the host resolves, Firefox users can test `about:config → network.http.http3.enabled = false` and restart Firefox. |
+| Changes not picked up | Restart Vite; `VITE_*` values are inlined at startup. Note that `frontend/.env.local` overrides `frontend/.env` — edit/remove the old key there too. |
 
 ---
 

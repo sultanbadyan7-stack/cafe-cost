@@ -600,6 +600,9 @@ export const ar: Record<TranslationKey, string> = {
   'footer.savedAt': 'حُفظ {time}',
   'footer.madeWith': 'صُنع لأصحاب المقاهي الصغيرة',
   'footer.telegram': 'تواصل معنا عبر تيليجرام',
+  'footer.tiktok': 'تيك توك',
+  'footer.instagram': 'إنستغرام',
+  'footer.followUs': 'تابعنا على',
 
   'preset.menu': 'قائمة الأصناف',
   'preset.suppliers': 'قائمة الموردين',

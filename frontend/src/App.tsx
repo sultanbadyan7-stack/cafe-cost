@@ -18,10 +18,9 @@ import { StaffTab } from './components/tabs/StaffTab';
 import { AssetsTab } from './components/tabs/AssetsTab';
 import { SummaryTab } from './components/tabs/SummaryTab';
 import { PrintSummary } from './components/report/PrintSummary';
-import { SaveStatus } from './components/common/SaveStatus';
+import { Footer } from './components/layout/Footer';
 import { useI18n } from './hooks/useI18n';
 import { useEnterKeyNavigation } from './hooks/useEnterKeyNavigation';
-import { TELEGRAM_URL } from './lib/links';
 
 function ActiveTab() {
   const { state } = useCalculator();
@@ -76,25 +75,7 @@ function AppShell() {
           <ActiveTab />
         </div>
 
-        <footer className="mt-8 border-t border-border pt-4 text-small text-primary/45">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="max-w-2xl text-legal">{t('app.disclaimer')}</p>
-            <div className="flex items-center gap-3">
-              <a
-                href={TELEGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-8 items-center gap-1.5 rounded-sm px-1 text-small text-primary/60 transition hover:text-accent focus-visible:outline-none focus-visible:shadow-focus"
-              >
-                {t('footer.telegram')}
-              </a>
-              <SaveStatus />
-            </div>
-          </div>
-          <p className="mt-1 text-legal text-primary/35">
-            {t('app.name')} — {t('footer.madeWith')}
-          </p>
-        </footer>
+        <Footer />
       </Layout>
 
       <MobileSummaryBar />
